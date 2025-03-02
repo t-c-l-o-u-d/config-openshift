@@ -1,0 +1,15 @@
+variant: openshift
+version: 4.14.0
+metadata:
+  name: 100-master-blacklist-amdgpu
+  labels:
+    machineconfiguration.openshift.io/role: master
+storage:
+  files:
+  - path: /etc/modprobe.d/blacklist-amdgpu.conf
+    mode: 0644
+    overwrite: true
+    contents:
+      inline: |
+        blacklist amdgpu
+        blacklist radeon

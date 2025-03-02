@@ -1,0 +1,13 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: KubeletConfig
+metadata:
+  name: set-allocatable
+spec:
+  machineConfigPoolSelector:
+    matchLabels:
+      pools.operator.machineconfiguration.openshift.io/worker: ""
+      pools.operator.machineconfiguration.openshift.io/master: ""
+  kubeletConfig:
+    systemReserved:
+      cpu: 1000m
+      memory: 4Gi

@@ -1,0 +1,27 @@
+---
+apiVersion: lvm.topolvm.io/v1alpha1
+kind: LVMCluster
+metadata:
+  name: my-lvmcluster
+  namespace: openshift-storage
+spec:
+  storage:
+    deviceClasses:
+    - name: vg1
+      fstype: xfs 
+      default: true
+      deviceSelector: 
+        paths:
+        - /dev/disk/by-id/nvme-CT2000T700SSD3_2320E6D61470
+        - /dev/disk/by-id/nvme-Samsung_980_PRO_with_Heatsink_1TB_S6WSNS0RA26345Z
+        forceWipeDevicesAndDestroyAllData: true
+      thinPoolConfig:
+        name: thin-pool-1
+        sizePercent: 90 
+        overprovisionRatio: 1
+        chunkSizeCalculationPolicy: Static
+
+# more information on why to use /dev/disk/by-id
+# https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/system_design_guide/assembly_overview-of-persistent-naming-attributes_system-design-guide#file-system-identifiers_assembly_overview-of-persistent-naming-attributes
+# obtain the path:
+# ssh sno ls -l /dev/disk/by-id/
