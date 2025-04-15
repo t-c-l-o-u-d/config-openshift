@@ -1,30 +1,27 @@
 # GNU Affero General Public License v3.0 or later (see COPYING or https://www.gnu.org/licenses/agpl.txt)
 
-FROM ghcr.io/t-c-l-o-u-d/config-devcontainer/arch-linux-devcontainer-base:latest
-# FROM ghcr.io/t-c-l-o-u-d/config-devcontainer/debian-devcontainer-base:latest
-# FROM ghcr.io/t-c-l-o-u-d/config-devcontainer/fedora-devcontainer-base:latest
+FROM ghcr.io/t-c-l-o-u-d/devcontainer-base-images/fedora-devcontainer:latest
 
 # pull in USER from devcontainer.json
 ARG USER
 
 # add the USER to the image
-RUN useradd --create-home --groups wheel ${USER}
+RUN useradd --create-home --shell /usr/bin/bash --groups wheel ${USER}
 
 # =======================================
 # repository specific commands start here
 # =======================================
 
-# TODO: UPDATE
-# # add bash files
-# COPY template-devcontainer /etc/skel/.config/bash/template-devcontainer
+RUN dnf5 install --assumeyes \
+    butane \
+    golang \
+    httpd-tools \
+    jq \
+    yamllint \
+    yq
 
-# RUN dnf5 install --assumeyes \
-#     butane \
-#     golang \
-#     httpd-tools \
-#     jq \
-#     yamllint \
-#     yq
+# # copy oc binary
+# COPY ./.devcontainer/files/oc ~/.local/bin/oc
 
 # # trust OpenShift cert
 # COPY ./.devcontainer/files/api-vulcan-internal.crt /etc/pki/ca-trust/source/anchors/
