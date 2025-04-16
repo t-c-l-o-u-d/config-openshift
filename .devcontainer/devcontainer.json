@@ -51,8 +51,6 @@
                 "openshiftToolkit.showWelcomePage": false
             },
             "extensions": [
-                "ms-azuretools.vscode-docker",
-                // repository specific extensions go here
                 "golang.Go",
                 "ms-kubernetes-tools.vscode-kubernetes-tools",
                 "redhat.vscode-openshift-connector",
