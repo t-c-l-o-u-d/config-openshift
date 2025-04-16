@@ -3,9 +3,11 @@ apiVersion: config.openshift.io/v1
 kind: OAuth
 metadata:
   name: cluster
+  annotations:
+      kubectl.kubernetes.io/last-applied-configuration: ""
 spec:
   identityProviders:
-  - name: Login
+  - name: Login (HTPasswd)
     mappingMethod: claim
     type: HTPasswd
     htpasswd:
