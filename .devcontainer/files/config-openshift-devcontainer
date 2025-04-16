@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+# GNU Affero General Public License v3.0 or later (see COPYING or https://www.gnu.org/licenses/agpl.txt)
+
+
+_completion_file() {
+    if command -v "${1}" &> /dev/null; then
+        COMPLETION_FILE="${HOME}/.config/bash/bash_completion_${1}"
+        if [ -f "${COMPLETION_FILE}" ]; then
+            if declare -F "__${1}_get_completion_results" &> /dev/null; then
+                return
+            fi
+        else
+            "${1}" completion bash > "${COMPLETION_FILE}"
+        fi
+        source "${COMPLETION_FILE}"
+    fi
+}
+
+_completion_file oc
+_completion_file virtctl
